@@ -1,0 +1,95 @@
+
+plugins {
+    id 'java'
+    id 'application'
+}
+
+//mainClassName = "ru.stqa.pft.sandbox.MyFirstProgram"
+//mainClassName = "ru.stqa.pft.sandbox.DistanceBetweenTwoPoints"
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+ext {
+    slf4jVersion  = "1.7.36"
+    logbackVersion  = "1.2.11"
+
+    seleniumVersion  = "4.1.3"
+    testNgVersion = "7.5"
+    assertjVersion  = "3.22.0"
+    wdmVersion = "5.1.1"
+
+    htmlunitVersion = "3.60.0"
+    awaitilityVersion = "4.2.0"
+    browsermobVersion = "2.1.5"
+    zapclientVersion = "1.10.0"
+    axelVersion = "4.4.1"
+    selenideVersion = "6.4.0"
+    javafakerVersion = "1.0.2"
+    extentreportsVersion = "5.0.9"
+    cucumberVersion = "7.2.3"
+    springBootVersion = "2.6.6"
+    appiumVersion = "8.0.0"
+    restAssuredVersion = "5.0.1"
+}
+
+dependencies {
+    implementation 'org.testng:testng:7.1.0'
+    implementation 'org.seleniumhq.selenium:selenium-java:3.141.59'
+    testImplementation("io.github.bonigarcia:webdrivermanager:${wdmVersion}")
+    testRuntimeOnly("org.slf4j:slf4j-simple:${slf4jVersion}")
+
+}
+test {
+    useTestNG() {
+        if (project.hasProperty("groups")) {
+            includeGroups "$groups"
+        }
+        if (project.hasProperty("excludedGroups")) {
+            excludeGroups "$excludedGroups"
+        }
+    }
+
+    scanForTestClasses = false
+
+    testLogging {
+        events "passed", "skipped", "failed"
+        showStandardStreams = true
+    }
+
+    systemProperties System.properties
+
+    if (project.hasProperty("parallel")) {
+        maxParallelForks = Runtime.runtime.availableProcessors()
+    }
+
+    if (project.hasProperty("suite")) {
+        suites "$suite"
+    }
+
+    if (project.hasProperty("excludeTests")) {
+        "$excludeTests".split(",").each { excludeTests ->
+            exclude excludeTests
+        }
+    }
+
+    ext.failedTests = []
+
+    tasks.withType(Test) {
+        afterTest { TestDescriptor descriptor, TestResult result ->
+            if(result.resultType == org.gradle.api.tasks.testing.TestResult.ResultType.FAILURE) {
+                failedTests << ["${descriptor.className}::${descriptor.name}"]
+            }
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+tasks.withType(Test) {
+    systemProperty "file.encoding", "UTF-8"
+}
