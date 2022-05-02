@@ -12,7 +12,6 @@ public class GroupCreationTests extends TestBase {
     fillGroupForm(new GroupData("test1", "test2", "test3"));
     submitGroupCreation();
     returnToGroupsPage();
-    logout();
   }
 
 

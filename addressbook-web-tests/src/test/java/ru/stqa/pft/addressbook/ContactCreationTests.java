@@ -11,7 +11,6 @@ public class ContactCreationTests extends TestBase {
             "Home sweet home", "3223322", "alex@shmalex.com"));
     submitContactCreation();
     gotoHomePage();
-    logout();
 
   }
 
