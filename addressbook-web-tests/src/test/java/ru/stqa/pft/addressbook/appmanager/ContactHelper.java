@@ -11,7 +11,7 @@ public class ContactHelper extends HelperBase{
     super(wd);
   }
   public void submitContactCreation() {
-    click(By.xpath("//form[@name='theform']/input[1]"));
+    click(By.name("submit"));
   }
 
   public void fillContactForm(ContactData contactData) {
