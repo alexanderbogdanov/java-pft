@@ -29,6 +29,16 @@ public class ContactHelper extends HelperBase {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
 }
+  public void fillContactForm(ContactData contactData) {
+    type(By.name("firstname"), contactData.getFirstName());
+    type(By.name("lastname"), contactData.getLastName());
+    type(By.name("address"), contactData.getAddress());
+    type(By.name("home"), contactData.getPhoneNumber());
+    type(By.name("email"), contactData.getEmail());
+
+  }
+
+
 
   public void initContactCreation() {
     click(By.linkText("add new"));
@@ -53,7 +63,7 @@ public class ContactHelper extends HelperBase {
 
   public void createContact(ContactData contact) {
     initContactCreation();
-    fillContactForm(contact, true);
+    fillContactForm(contact);
     submitContactCreation();
   }
 
