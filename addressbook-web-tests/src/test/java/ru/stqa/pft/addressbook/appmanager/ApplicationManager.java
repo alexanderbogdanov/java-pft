@@ -37,6 +37,7 @@ public class ApplicationManager {
         wd = new OperaDriver();
         break;
     }
+
     wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
     wd.get("http://localhost/addressbook/index.php");
     contactHelper = new ContactHelper(wd);
