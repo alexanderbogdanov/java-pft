@@ -38,4 +38,12 @@ public class ContactData {
   }
 
   public String getGroup() { return group; }
+
+  @Override
+  public String toString() {
+    return "ContactData{" +
+            "firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            '}';
+  }
 }
