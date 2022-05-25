@@ -3,7 +3,7 @@ package ru.stqa.pft.addressbook.model;
 import java.util.Objects;
 
 public class GroupData {
-  private int id = Integer.MAX_VALUE;;
+  private int id = Integer.MAX_VALUE;
   private String name;
   private String header;
   private String footer;
@@ -43,13 +43,14 @@ public class GroupData {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GroupData groupData = (GroupData) o;
-    return Objects.equals(name, groupData.name);
+    return id == groupData.id && Objects.equals(name, groupData.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name);
+    return Objects.hash(id, name);
   }
+
   @Override
   public String toString() {
     return "GroupData{" +
