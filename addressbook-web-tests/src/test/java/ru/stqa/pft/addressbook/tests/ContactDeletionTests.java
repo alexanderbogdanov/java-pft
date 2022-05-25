@@ -11,11 +11,13 @@ public class ContactDeletionTests extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions() {
-    //    app.getNavigationHelper().gotoHomePage();
     if (app.contact().list().size() == 0) {
-      app.contact().create(new ContactData("Alex", "Shmalex",
-              "Home sweet home", "3223322",
-              "alex@shmalex.com", null));
+      app.contact().create(new ContactData()
+              .withFirstName("Alex")
+              .withLastName("Shmalex")
+              .withAddress("Home sweet home")
+              .withPhoneNumber("3223322")
+              .withEmail("alex@shmalex.com"));
     }
   }
   @Test

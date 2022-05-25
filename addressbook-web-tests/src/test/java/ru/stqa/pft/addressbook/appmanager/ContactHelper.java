@@ -96,7 +96,6 @@ public class ContactHelper extends HelperBase {
   }
 
   // method for getting contacts count
-//
 //  public int getContactCount() {
 //    return wd.findElements(By.name("selected[]")).size();
 //  }
@@ -109,9 +108,10 @@ public class ContactHelper extends HelperBase {
       List<WebElement> cells = row.findElements(By.tagName("td"));
       String lastname = cells.get(1).getText();
       String firstname = cells.get(2).getText();
-      ContactData contact = new ContactData
-              (id, firstname, lastname, null,
-                      null, null, null);
+      ContactData contact = new ContactData()
+              .withId(id)
+              .withFirstName(firstname)
+              .withLastName(lastname);
       contacts.add(contact);
     }
     return contacts;
