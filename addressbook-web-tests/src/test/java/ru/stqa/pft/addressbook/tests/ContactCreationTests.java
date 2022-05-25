@@ -10,15 +10,13 @@ import java.util.List;
 public class ContactCreationTests extends TestBase {
 
   @Test
-  public void testContactCreation() throws Exception {
-//    app.getNavigationHelper().gotoHomePage();
-    List<ContactData> before = app.getContactHelper().getContactList();
+  public void testContactCreation() {
+    List<ContactData> before = app.contact().list();
     ContactData contact = new ContactData("Alex", "Shmalex",
             "Home sweet home", "3223322",
             "alex@shmalex.com", "test1");
-    app.getContactHelper().createContact(contact);
-    app.getNavigationHelper().gotoHomePage();
-    List<ContactData> after = app.getContactHelper().getContactList();
+    app.contact().create(contact);
+    List<ContactData> after = app.contact().list();
     Assert.assertEquals(after.size(), before.size() + 1);
 
 

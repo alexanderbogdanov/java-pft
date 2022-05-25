@@ -16,6 +16,13 @@ public class ContactHelper extends HelperBase {
     super(wd);
   }
 
+
+  public void returnToHomePage() {
+    if (isElementPresent(By.id("maintable"))) {
+      return;
+    }
+    click(By.linkText("home"));
+  }
   public void submitContactCreation() {
     click(By.name("submit"));
   }
@@ -64,10 +71,24 @@ public class ContactHelper extends HelperBase {
     click(By.name("update"));
   }
 
-  public void createContact(ContactData contact) {
+  public void create(ContactData contact) {
     initContactCreation();
     fillContactForm(contact);
     submitContactCreation();
+    returnToHomePage();
+  }
+
+  public void modify(int index, ContactData contact) {
+    initContactModification(index);
+    fillContactForm(contact,false);
+    submitContactModification();
+    returnToHomePage();
+  }
+
+  public void delete(int index) {
+   selectContact(index);
+   deleteSelectedContacts();
+   returnToHomePage();
   }
 
   public boolean isThereAContact() {
@@ -80,7 +101,7 @@ public class ContactHelper extends HelperBase {
 //    return wd.findElements(By.name("selected[]")).size();
 //  }
 
-  public List<ContactData> getContactList() {
+  public List<ContactData> list() {
     List<ContactData> contacts = new ArrayList<>();
     List<WebElement> rows = wd.findElements(By.name("entry"));
     for (WebElement row : rows) {
