@@ -31,12 +31,15 @@ ext {
     springBootVersion = "2.6.6"
     appiumVersion = "8.0.0"
     restAssuredVersion = "5.0.1"
+
+    hamcrestVersion = "2.0.0.0"
 }
 
 dependencies {
     implementation 'org.testng:testng:7.1.0'
     implementation 'org.seleniumhq.selenium:selenium-java:3.141.59'
-    testImplementation("io.github.bonigarcia:webdrivermanager:${wdmVersion}")
+    testImplementation("io.github.bonigarcia:webdrivermanager:${wdmVersion}",
+            "org.hamcrest:java-hamcrest:${hamcrestVersion}")
     testRuntimeOnly("org.slf4j:slf4j-simple:${slf4jVersion}")
 
 }
@@ -77,7 +80,7 @@ test {
 
     tasks.withType(Test) {
         afterTest { TestDescriptor descriptor, TestResult result ->
-            if(result.resultType == org.gradle.api.tasks.testing.TestResult.ResultType.FAILURE) {
+            if(result.resultType == TestResult.ResultType.FAILURE) {
                 failedTests << ["${descriptor.className}::${descriptor.name}"]
             }
         }
