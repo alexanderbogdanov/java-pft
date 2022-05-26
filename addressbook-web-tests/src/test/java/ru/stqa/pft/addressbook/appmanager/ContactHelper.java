@@ -8,10 +8,7 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 
 public class ContactHelper extends HelperBase {
@@ -80,6 +77,7 @@ public class ContactHelper extends HelperBase {
     initContactCreation();
     fillContactForm(contact);
     submitContactCreation();
+    contactCache = null;
     returnToHomePage();
   }
 
@@ -87,6 +85,7 @@ public class ContactHelper extends HelperBase {
     initContactModificationById(contact.getId());
     fillContactForm(contact,false);
     submitContactModification();
+    contactCache = null;
     returnToHomePage();
   }
 
@@ -99,6 +98,7 @@ public class ContactHelper extends HelperBase {
   public void delete(ContactData contact) {
     selectContactByID(contact.getId());
     deleteSelectedContacts();
+    contactCache = null;
     returnToHomePage();
   }
 
@@ -111,20 +111,23 @@ public class ContactHelper extends HelperBase {
 //    return wd.findElements(By.name("selected[]")).size();
 //  }
 
-
+  private Contacts contactCache = null;
   public Contacts all() {
-    Contacts contacts = new Contacts();
+    if (contactCache != null) {
+      return new Contacts(contactCache);
+    }
+    contactCache = new Contacts();
     List<WebElement> rows = wd.findElements(By.name("entry"));
     for (WebElement row : rows) {
       int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value")); //not sure
       List<WebElement> cells = row.findElements(By.tagName("td"));
       String lastname = cells.get(1).getText();
       String firstname = cells.get(2).getText();
-      contacts.add(new ContactData()
+      contactCache.add(new ContactData()
               .withId(id)
               .withFirstName(firstname)
               .withLastName(lastname));
     }
-    return contacts;
+    return new Contacts(contactCache);
   }
 }
