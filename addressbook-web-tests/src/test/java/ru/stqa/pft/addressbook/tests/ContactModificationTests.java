@@ -18,7 +18,7 @@ public class ContactModificationTests extends TestBase {
               .withFirstName("Alex")
               .withLastName("Shmalex")
               .withAddress("Home sweet home")
-              .withPhoneNumber("3223322")
+              .withHomePhone("3223322")
               .withEmail("alex@shmalex.com"));
     }
   }
@@ -30,7 +30,7 @@ public class ContactModificationTests extends TestBase {
             .withFirstName("Johnny")
             .withLastName("Doe")
             .withAddress("Antalya")
-            .withPhoneNumber("1234567")
+            .withHomePhone("1234567")
             .withEmail("joe@doe.com")
             .withGroup("test1");
     app.contact().modify(contact);
