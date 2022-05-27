@@ -11,6 +11,9 @@ repositories {
     mavenCentral()
 }
 ext {
+    testNgVersion = "7.1.0"
+    seleniumVersion = "3.141.59"
+
     slf4jVersion  = "1.7.36"
     logbackVersion  = "1.2.11"
 
@@ -32,12 +35,14 @@ ext {
     appiumVersion = "8.0.0"
     restAssuredVersion = "5.0.1"
 
+    jcommanderVersion = "1.82"
     hamcrestVersion = "2.0.0.0"
 }
 
 dependencies {
-    implementation 'org.testng:testng:7.1.0'
-    implementation 'org.seleniumhq.selenium:selenium-java:3.141.59'
+    implementation ("org.testng:testng:${testNgVersion}",
+            "org.seleniumhq.selenium:selenium-java:${seleniumVersion}",
+            "com.beust:jcommander:${jcommanderVersion}")
     testImplementation("io.github.bonigarcia:webdrivermanager:${wdmVersion}",
             "org.hamcrest:java-hamcrest:${hamcrestVersion}")
     testRuntimeOnly("org.slf4j:slf4j-simple:${slf4jVersion}")
