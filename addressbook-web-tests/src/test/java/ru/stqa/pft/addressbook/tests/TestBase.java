@@ -5,17 +5,18 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
 
+
 public class TestBase {
 
-  protected static final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
+  protected static final ApplicationManager app = new ApplicationManager("CHROME");
 
   @BeforeSuite(alwaysRun = true)
-  public void setUp() throws Exception {
+  public void setUp() {
     app.init();
   }
 
   @AfterSuite(alwaysRun = true)
-  public void tearDown() throws Exception {
+  public void tearDown() {
     app.stop();
   }
 

@@ -5,9 +5,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.opera.OperaDriver;
+import org.openqa.selenium.remote.Browser;
 import org.openqa.selenium.remote.BrowserType;
 
 import java.util.concurrent.TimeUnit;
+import java.time.Duration;
+
+import static io.github.bonigarcia.wdm.WebDriverManager.chromedriver;
 
 public class ApplicationManager {
 
@@ -23,22 +27,17 @@ public class ApplicationManager {
   }
 
   public void init() {
-    switch (browser) {
-      case BrowserType.CHROME:
-        WebDriverManager.chromedriver().setup();
-        wd = new ChromeDriver();
-        break;
-      case BrowserType.FIREFOX:
-        WebDriverManager.firefoxdriver().setup();
-        wd = new FirefoxDriver();
-        break;
-      case BrowserType.OPERA_BLINK:
-        WebDriverManager.operadriver().setup();
-        wd = new OperaDriver();
-        break;
+    if ("CHROME".equals(browser)) {
+      WebDriverManager.chromedriver().setup();
+      wd = new ChromeDriver();
+    } else if ("FIREFOX".equals(browser)) {
+      WebDriverManager.firefoxdriver().setup();
+      wd = new FirefoxDriver();
+    } else if ("OPERA".equals(browser)) {
+      WebDriverManager.chromedriver().setup();
     }
 
-    wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+    wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
     wd.get("http://localhost/addressbook/index.php");
     contactHelper = new ContactHelper(wd);
     groupHelper = new GroupHelper(wd);
