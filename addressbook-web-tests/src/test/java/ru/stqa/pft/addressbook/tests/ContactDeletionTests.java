@@ -18,11 +18,14 @@ public class ContactDeletionTests extends TestBase {
               .withFirstName("Alex")
               .withLastName("Shmalex")
               .withAddress("Home sweet home")
-              .withHomePhone("3223322")
-              .withEmail("alex@shmalex.com"));
+              .withHomePhone("1111111")
+              .withMobilePhone("2222222")
+              .withWorkPhone("3333333")
+              .withEmail1("alex@shmalex.com")
+              .withGroup("test1"));
+
     }
   }
-
   @Test
   public void testContactDeletion() {
 
