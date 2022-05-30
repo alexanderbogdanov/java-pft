@@ -22,12 +22,14 @@ public class GroupCreationTests extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> validGroupsFromXml() throws IOException {
-    BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/groups.xml"));
-    StringBuilder xml = new StringBuilder();
-    String line = reader.readLine();
-    while (line != null) {
-      xml.append(line);
-      line = reader.readLine();
+    StringBuilder xml;
+    try (BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/groups.xml"))) {
+      xml = new StringBuilder();
+      String line = reader.readLine();
+      while (line != null) {
+        xml.append(line);
+        line = reader.readLine();
+      }
     }
     XStream xstream = new XStream();
     xstream.processAnnotations(GroupData.class);
@@ -37,12 +39,14 @@ public class GroupCreationTests extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> validGroupsFromJson() throws IOException {
-    BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/groups.json"));
-    StringBuilder json = new StringBuilder();
-    String line = reader.readLine();
-    while (line != null) {
-      json.append(line);
-      line = reader.readLine();
+    StringBuilder json;
+    try (BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/groups.json"))) {
+      json = new StringBuilder();
+      String line = reader.readLine();
+      while (line != null) {
+        json.append(line);
+        line = reader.readLine();
+      }
     }
     Gson gson = new Gson();
     List<GroupData> groups = gson.fromJson(String.valueOf(json), new TypeToken<List<GroupData>>(){}.getType());

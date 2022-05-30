@@ -22,12 +22,14 @@ public class ContactCreationTests extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> contactsFromJSON() throws IOException {
-    BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/contacts.json"));
-    StringBuilder json = new StringBuilder();
-    String line = reader.readLine();
-    while (line != null) {
-      json.append(line);
-      line = reader.readLine();
+    StringBuilder json;
+    try (BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/contacts.json"))) {
+      json = new StringBuilder();
+      String line = reader.readLine();
+      while (line != null) {
+        json.append(line);
+        line = reader.readLine();
+      }
     }
     Gson gson = new Gson();
     List<ContactData> contacts = gson.fromJson(String.valueOf(json), new TypeToken<List<ContactData>>() {
