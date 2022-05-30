@@ -8,8 +8,9 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
-import java.io.*;
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,7 +45,6 @@ public class GroupCreationTests extends TestBase {
       line = reader.readLine();
     }
     Gson gson = new Gson();
-//    gson.fromJson(json, new TypeToken<List<GroupData>>(){}.getType());
     List<GroupData> groups = gson.fromJson(String.valueOf(json), new TypeToken<List<GroupData>>(){}.getType());
     return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
   }
