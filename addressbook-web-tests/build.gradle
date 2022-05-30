@@ -1,3 +1,4 @@
+import org.gradle.api.tasks.testing.Test
 
 plugins {
     id 'java'
@@ -62,6 +63,7 @@ test {
         if (project.hasProperty("excludedGroups")) {
             excludeGroups "$excludedGroups"
         }
+
     }
 
     scanForTestClasses = false
@@ -103,4 +105,16 @@ tasks.withType(JavaCompile) {
 }
 tasks.withType(Test) {
     systemProperty "file.encoding", "UTF-8"
+}
+
+task testGroups(type: Test) {
+    useTestNG {
+        suites 'src/test/resources/testng-groups.xml'
+    }
+}
+
+task testContacts(type: Test) {
+    useTestNG {
+        suites 'src/test/resources/testng-contacts.xml'
+    }
 }

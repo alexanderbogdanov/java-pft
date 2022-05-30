@@ -47,7 +47,7 @@ public class ContactCreationTests extends TestBase {
             before.withAdded(contact.withId(after.stream().mapToInt(ContactData::getId).max().getAsInt()))));
   }
 
-  @Test(dataProvider = "contactsFromJSON")
+  @Test
   public void testContactCreationWithPhoto() {
     File photo = new File("src/test/resources/pic.jpg");
     Contacts before = app.contact().all();
