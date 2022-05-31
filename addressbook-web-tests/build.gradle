@@ -12,14 +12,14 @@ repositories {
     mavenCentral()
 }
 ext {
-    testNgVersion = "7.1.0"
-    seleniumVersion = "3.141.59"
+//    testNgVersion = "7.1.0"
+    testNgVersion = "6.9.10"
+//    seleniumVersion = "3.141.59"
+    seleniumVersion = "2.50.0"
 
     slf4jVersion  = "1.7.36"
     logbackVersion  = "1.2.11"
 
-    seleniumVersion  = '4.1.4'
-    testNgVersion = "7.5"
     assertjVersion  = "3.22.0"
     wdmVersion = "5.2.0"
 
@@ -39,7 +39,7 @@ ext {
     jcommanderVersion = "1.82"
     hamcrestVersion = "2.0.0.0"
     xstreamVersion = "1.4.8"
-    gsonVersion = "2.6.1"
+    gsonVersion = "2.8.5"
 
 }
 
@@ -55,50 +55,50 @@ dependencies {
     testRuntimeOnly("org.slf4j:slf4j-simple:${slf4jVersion}")
 
 }
-test {
-    useTestNG() {
-        if (project.hasProperty("groups")) {
-            includeGroups "$groups"
-        }
-        if (project.hasProperty("excludedGroups")) {
-            excludeGroups "$excludedGroups"
-        }
-
-    }
-
-    scanForTestClasses = false
-
-    testLogging {
-        events "passed", "skipped", "failed"
-        showStandardStreams = true
-    }
-
-    systemProperties System.properties
-
-    if (project.hasProperty("parallel")) {
-        maxParallelForks = Runtime.runtime.availableProcessors()
-    }
-
-    if (project.hasProperty("suite")) {
-        suites "$suite"
-    }
-
-    if (project.hasProperty("excludeTests")) {
-        "$excludeTests".split(",").each { excludeTests ->
-            exclude excludeTests
-        }
-    }
-
-    ext.failedTests = []
-
-    tasks.withType(Test) {
-        afterTest { TestDescriptor descriptor, TestResult result ->
-            if(result.resultType == TestResult.ResultType.FAILURE) {
-                failedTests << ["${descriptor.className}::${descriptor.name}"]
-            }
-        }
-    }
-}
+//test {
+//    useTestNG() {
+//        if (project.hasProperty("groups")) {
+//            includeGroups "$groups"
+//        }
+//        if (project.hasProperty("excludedGroups")) {
+//            excludeGroups "$excludedGroups"
+//        }
+//
+//    }
+//
+//    scanForTestClasses = false
+//
+//    testLogging {
+//        events "passed", "skipped", "failed"
+//        showStandardStreams = true
+//    }
+//
+//    systemProperties System.properties
+//
+//    if (project.hasProperty("parallel")) {
+//        maxParallelForks = Runtime.runtime.availableProcessors()
+//    }
+//
+//    if (project.hasProperty("suite")) {
+//        suites "$suite"
+//    }
+//
+//    if (project.hasProperty("excludeTests")) {
+//        "$excludeTests".split(",").each { excludeTests ->
+//            exclude excludeTests
+//        }
+//    }
+//
+//    ext.failedTests = []
+//
+//    tasks.withType(Test) {
+//        afterTest { TestDescriptor descriptor, TestResult result ->
+//            if(result.resultType == TestResult.ResultType.FAILURE) {
+//                failedTests << ["${descriptor.className}::${descriptor.name}"]
+//            }
+//        }
+//    }
+//}
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -111,10 +111,22 @@ task testGroups(type: Test) {
     useTestNG {
         suites 'src/test/resources/testng-groups.xml'
     }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', "${browser}"
+    }
+    if (project.hasProperty('target')) {
+        systemProperty 'target', "${target}"
+    }
 }
 
 task testContacts(type: Test) {
     useTestNG {
         suites 'src/test/resources/testng-contacts.xml'
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', "${browser}"
+    }
+    if (project.hasProperty('target')) {
+        systemProperty 'target', "${target}"
     }
 }
