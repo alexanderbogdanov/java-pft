@@ -9,7 +9,7 @@ import java.sql.*;
 public class DbConnectionTest {
   @Test
   public void testDbConnection() {
-    Connection conn = null;
+    Connection conn;
     try {
       conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/addressbook?user=root&password=");
       Statement st = conn.createStatement();

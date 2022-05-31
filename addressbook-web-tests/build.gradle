@@ -12,9 +12,7 @@ repositories {
     mavenCentral()
 }
 ext {
-//    testNgVersion = "7.1.0"
     testNgVersion = "6.9.10"
-//    seleniumVersion = "3.141.59"
     seleniumVersion = "2.50.0"
 
     slf4jVersion  = "1.7.36"
@@ -41,7 +39,7 @@ ext {
     xstreamVersion = "1.4.8"
     gsonVersion = "2.8.5"
     mysqlVersion = "5.1.38"
-
+    hibernateVersion = "5.1.0.Final"
 }
 
 dependencies {
@@ -50,13 +48,14 @@ dependencies {
             "com.beust:jcommander:${jcommanderVersion}",
             "com.thoughtworks.xstream:xstream:${xstreamVersion}",
             "mysql:mysql-connector-java:${mysqlVersion}",
+            "org.hibernate:hibernate-core:${hibernateVersion}",
             "com.google.code.gson:gson:${gsonVersion}"
     )
     testImplementation("io.github.bonigarcia:webdrivermanager:${wdmVersion}",
             "org.hamcrest:java-hamcrest:${hamcrestVersion}",
             "ch.qos.logback:logback-classic:${logbackVersion}"
     )
-    testRuntimeOnly("org.slf4j:slf4j-simple:${slf4jVersion}")
+//    testRuntimeOnly("org.slf4j:slf4j-simple:${slf4jVersion}")
 
 }
 //test {
