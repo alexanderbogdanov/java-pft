@@ -40,7 +40,6 @@ ext {
     hamcrestVersion = "2.0.0.0"
     xstreamVersion = "1.4.8"
     gsonVersion = "2.8.5"
-
 }
 
 dependencies {
@@ -51,7 +50,9 @@ dependencies {
             "com.google.code.gson:gson:${gsonVersion}"
     )
     testImplementation("io.github.bonigarcia:webdrivermanager:${wdmVersion}",
-            "org.hamcrest:java-hamcrest:${hamcrestVersion}")
+            "org.hamcrest:java-hamcrest:${hamcrestVersion}",
+            "ch.qos.logback:logback-classic:${logbackVersion}"
+    )
     testRuntimeOnly("org.slf4j:slf4j-simple:${slf4jVersion}")
 
 }
