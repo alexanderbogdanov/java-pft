@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
+import java.io.File;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertEquals;
@@ -22,6 +24,7 @@ public class ContactModificationTests extends TestBase {
               .withMobilePhone("2222222")
               .withWorkPhone("3333333")
               .withEmail1("alex@shmalex.com")
+              .withPhoto(new File("src/test/resources/pic.jpg"))
               .withGroup("test1"));
 
     }

@@ -66,9 +66,11 @@ public class ContactHelper extends HelperBase {
   public void selectContact(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
+
   private void selectContactByID(int id) {
     wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
   }
+
   public void deleteSelectedContacts() {
     click(By.xpath("//input[@value='Delete']"));
     wd.switchTo().alert().accept();
@@ -124,9 +126,7 @@ public class ContactHelper extends HelperBase {
             .withEmail3(email3);
 
   }
-  public void initContactModificationById(int id) {
-    wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']",id))).click();
-  }
+
 
   // alternatives
   /*
@@ -151,6 +151,9 @@ public class ContactHelper extends HelperBase {
     submitContactCreation();
     contactCache = null;
     returnToHomePage();
+  }
+  public void initContactModificationById(int id) {
+    wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']",id))).click();
   }
 
   public void modify(ContactData contact) {
