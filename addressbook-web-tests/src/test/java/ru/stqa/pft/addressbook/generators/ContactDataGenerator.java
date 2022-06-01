@@ -88,7 +88,8 @@ public class ContactDataGenerator {
               .withWorkPhone(String.format("333%s", i))
               .withEmail1(String.format("john%s@mail.com", i))
               .withEmail2(String.format("john%s@post.com", i))
-              .withEmail3(String.format("john%s@microsoft.com", i)));
+              .withEmail3(String.format("john%s@microsoft.com", i))
+              .withPhoto(new File("src/test/resources/pic.jpg")));
     }
     return contacts;
   }
