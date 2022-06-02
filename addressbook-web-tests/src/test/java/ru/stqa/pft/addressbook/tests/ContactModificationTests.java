@@ -39,11 +39,15 @@ public class ContactModificationTests extends TestBase {
             .withLastName("Doe")
             .withAddress("Antalya")
             .withHomePhone("1234567")
+            .withMobilePhone("232323")
+            .withWorkPhone("989898989")
             .withEmail1("joe@doe.com")
             .withGroup("test1");
     app.contact().modify(contact);
     assertEquals(app.contact().count(), before.size());
     Contacts after = app.db().contacts();
     assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
+    verifyContactListInUI(); // -DverifyListUI=true в конфигурации запуска
   }
+
 }
